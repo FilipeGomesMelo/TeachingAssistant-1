@@ -29,5 +29,14 @@ import { AlunoService } from './aluno.service';
       );
     }
 
-
-  }
+    removerAluno(aluno: Aluno): void {
+      this.alunoService.remover(aluno).subscribe(
+          (a) => { if (a) {
+              alert("Aluno removido com sucesso!");
+              this.alunos.splice(this.alunos.indexOf(aluno), 1);
+            } 
+          },
+          (msg) => { alert(msg.message); }
+      );
+    }
+}

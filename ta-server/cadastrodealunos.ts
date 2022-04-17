@@ -5,13 +5,17 @@ export class CadastroDeAlunos {
 
   cadastrar(aluno: Aluno): Aluno {
     var result = null;
-    if (this.cpfNaoCadastrado(aluno.cpf)) {
+    if (this.cpfNaoCadastrado(aluno.cpf) && this.githubNaoCadastrado(aluno.github)) {
       result = new Aluno();
       result.copyFrom(aluno);
       this.alunos.push(result);
     }
     return result;
-   }
+  }
+
+  githubNaoCadastrado(github: string): boolean {
+    return !this.alunos.find(a => a.github == github);
+  }
 
   cpfNaoCadastrado(cpf: string): boolean {
     return !this.alunos.find(a => a.cpf == cpf);
@@ -26,4 +30,14 @@ export class CadastroDeAlunos {
   getAlunos(): Aluno[] {
     return this.alunos;
   }
+
+  remover(cpf: string): boolean {
+    var result = this.alunos.find(a => a.cpf == cpf);
+    if (result) {
+      this.alunos.splice(this.alunos.indexOf(result), 1);
+      return true;
+    }
+    return false;
+  }
+
 }
